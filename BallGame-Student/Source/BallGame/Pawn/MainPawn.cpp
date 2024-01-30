@@ -43,6 +43,9 @@ AMainPawn::AMainPawn()
 	VisualMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	VisualMesh->SetCollisionProfileName(TEXT("IgnoreAll"));
 
+	CollisionSphere->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	CollisionSphere->SetCollisionProfileName("Pawn");
+
 	bPaused = false;
 
 }
@@ -54,20 +57,30 @@ void AMainPawn::BeginPlay()
 	//method one actoroverlap
 	OnActorBeginOverlap.AddDynamic(this, &AMainPawn::OnActorOverlapBegin);
 	OnActorEndOverlap.AddDynamic(this, &AMainPawn::OnActorOverlapEnd);
+	OnActorHit.AddDynamic(this, &AMainPawn::OnHitActor);
 	
 }
 
 void AMainPawn::OnActorOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 {
+	if (GEngine) {
+		GEngine->AddOnScreenDebugMessage(2, 10.f, FColor::Red, "AMainPawn::OnActorOverlapBegin");
+	}
 
 }
 
 void AMainPawn::OnActorOverlapEnd(AActor* OverlappedActor, AActor* OtherActor)
 {
+	if (GEngine) {
+		GEngine->AddOnScreenDebugMessage(2, 10.f, FColor::Green, "AMainPawn::OnActorOverlapEnd");
+	}
 }
 
 void AMainPawn::OnHitActor(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
+	if (GEngine) {
+		GEngine->AddOnScreenDebugMessage(2, 10.f, FColor::Blue, "AMainPawn::OnActorHit");
+	}
 }
 
 void AMainPawn::OnCollisionSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

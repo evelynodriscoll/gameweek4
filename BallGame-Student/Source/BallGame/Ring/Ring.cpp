@@ -18,6 +18,7 @@ ARing::ARing()
 	VisualMesh->SetupAttachment(RootComponent);
 
 	//STEP 2
+	VisualMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	
 }
 
