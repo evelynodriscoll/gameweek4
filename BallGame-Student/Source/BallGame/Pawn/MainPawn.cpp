@@ -51,11 +51,15 @@ AMainPawn::AMainPawn()
 void AMainPawn::BeginPlay()
 {
 	Super::BeginPlay();
+	//method one actoroverlap
+	OnActorBeginOverlap.AddDynamic(this, &AMainPawn::OnActorOverlapBegin);
+	OnActorEndOverlap.AddDynamic(this, &AMainPawn::OnActorOverlapEnd);
 	
 }
 
 void AMainPawn::OnActorOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 {
+
 }
 
 void AMainPawn::OnActorOverlapEnd(AActor* OverlappedActor, AActor* OtherActor)
